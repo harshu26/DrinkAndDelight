@@ -4,8 +4,8 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "stock")
-public class RawMaterialStock {
+@Table(name = "rawMaterialStock")
+public class RawMaterialStockEntity {
 
 	@Id
 	private String orderId;
@@ -20,7 +20,7 @@ public class RawMaterialStock {
 	private Date expiryDate;
 	private String qualityCheck;
 	private Date processDate;
-	private int supplierId;
+	//private int supplierId;
 	
 	public String getOrderId() {
 		return orderId;
@@ -94,13 +94,15 @@ public class RawMaterialStock {
 	public void setProcessDate(Date processDate) {
 		this.processDate = processDate;
 	}
+	
+	/*
 	public int getSupplierId() {
 		return supplierId;
 	}
 	public void setSupplierId(int supplierId) {
 		this.supplierId = supplierId;
 	}
-	
+	*/
 	
 	
 	

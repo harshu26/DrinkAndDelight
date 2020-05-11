@@ -1,5 +1,7 @@
 package org.drinkanddelight.rawmaterial.dto;
 
+import java.util.Date;
+
 public class RawMaterialStockDto {
 
 	private String orderId;
@@ -7,8 +9,15 @@ public class RawMaterialStockDto {
 	private double price_per_unit;
 	private double quantityUnit;
 	private String warehouseId;
-	private int supplierId;
+	//private int supplierId;
+	private Date deliveryDate;
 	
+	public Date getDeliveryDate() {
+		return deliveryDate;
+	}
+	public void setDeliveryDate(Date deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
 	public String getOrderId() {
 		return orderId;
 	}
@@ -39,13 +48,14 @@ public class RawMaterialStockDto {
 	public void setWarehouseId(String warehouseId) {
 		this.warehouseId = warehouseId;
 	}
+	/*
 	public int getSupplierId() {
 		return supplierId;
 	}
 	public void setSupplierId(int supplierId) {
 		this.supplierId = supplierId;
 	}
-
+*/
 	
 	
 }

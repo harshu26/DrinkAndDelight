@@ -1,10 +1,15 @@
 package org.drinkanddelight.rawmaterial.dto;
 
+import java.util.Date;
+
+import org.drinkanddelight.rawmaterial.entities.Supplier;
+
 public class StockAndSupplierDto {
 
 	private String orderId;
 	private String name;
-	private SupplierDto supplier;
+	private Date deliveryDate;
+	private Supplier supplier;
 	public String getOrderId() {
 		return orderId;
 	}
@@ -17,12 +22,19 @@ public class StockAndSupplierDto {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public SupplierDto getSupplier() {
+	public Supplier getSupplier() {
 		return supplier;
 	}
-	public void setSupplier(SupplierDto supplier) {
+	public void setSupplier(Supplier supplier) {
 		this.supplier = supplier;
 	}
+	public Date getDeliveryDate() {
+		return deliveryDate;
+	}
+	public void setDeliveryDate(Date deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+	
 	
 	
 }
