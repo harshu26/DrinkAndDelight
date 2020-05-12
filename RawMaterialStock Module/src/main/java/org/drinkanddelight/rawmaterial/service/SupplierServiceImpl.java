@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.drinkanddelight.rawmaterial.dao.SupplierDao;
 import org.drinkanddelight.rawmaterial.entities.Supplier;
+import org.drinkanddelight.rawmaterial.exceptions.InvalidArgumentException;
 import org.drinkanddelight.rawmaterial.exceptions.SupplierNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,14 +27,16 @@ public class SupplierServiceImpl implements ISupplierService {
 	@Override
 	public Supplier fetchSupplierById(int id) {
 		if(id==0) {
-			throw new SupplierNotFoundException("Invlaid Supplier Id");
+			throw new InvalidArgumentException("Invlaid Supplier Id");
 		}
 	Optional<Supplier>optional = dao.findById(id);
-	Supplier supplier = null;
-	if(optional!=null) {
-		supplier = optional.get();
+	//Supplier supplier = null;
+	if(optional.isPresent()) {
+	Supplier supplier = optional.get();
+	return supplier;
 	}
-		return supplier;
+		//return supplier;
+	throw new SupplierNotFoundException("Supplier not found");
 	}
 
 	@Override

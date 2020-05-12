@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class RawMaterialStockDto {
 
+	private String stockId;
 	private String orderId;
 	private String name;
 	private double price_per_unit;
@@ -12,6 +13,12 @@ public class RawMaterialStockDto {
 	//private int supplierId;
 	private Date deliveryDate;
 	
+	public String getStockId() {
+		return stockId;
+	}
+	public void setStockId(String stockId) {
+		this.stockId = stockId;
+	}
 	public Date getDeliveryDate() {
 		return deliveryDate;
 	}

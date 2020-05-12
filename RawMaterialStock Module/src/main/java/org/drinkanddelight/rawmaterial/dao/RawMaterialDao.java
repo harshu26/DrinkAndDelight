@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RawMaterialDao extends JpaRepository<RawMaterialStockEntity,String> {
 
-	
+	RawMaterialStockEntity findByOrderId(String orderId);
 }

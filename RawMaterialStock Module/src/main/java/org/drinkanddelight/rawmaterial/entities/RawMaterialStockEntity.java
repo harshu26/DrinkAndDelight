@@ -8,6 +8,8 @@ import javax.persistence.*;
 public class RawMaterialStockEntity {
 
 	@Id
+	private String stockId;
+	
 	private String orderId;
 	private String name;
 	private double price_per_unit;
@@ -94,15 +96,13 @@ public class RawMaterialStockEntity {
 	public void setProcessDate(Date processDate) {
 		this.processDate = processDate;
 	}
+	public String getStockId() {
+		return stockId;
+	}
+	public void setStockId(String stockId) {
+		this.stockId = stockId;
+	}
 	
-	/*
-	public int getSupplierId() {
-		return supplierId;
-	}
-	public void setSupplierId(int supplierId) {
-		this.supplierId = supplierId;
-	}
-	*/
 	
 	
 	

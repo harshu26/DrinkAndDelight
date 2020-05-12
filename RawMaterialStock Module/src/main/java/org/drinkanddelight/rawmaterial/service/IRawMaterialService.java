@@ -11,6 +11,7 @@ public interface IRawMaterialService {
 	boolean validateExpiryDate(Date expiryDate);
 	//String updateRawMaterialStock(RawMaterialStock stock);
 	List<RawMaterialStockEntity> fetchAllStock();
-	String updateRawMaterialStock(RawMaterialStockEntity stock, Date newDate);
+	//String updateRawMaterialStock(RawMaterialStockEntity stock, Date newDate);
+	String updateRawMaterialStock(String orderId, Date date);
 	
 }

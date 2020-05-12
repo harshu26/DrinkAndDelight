@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.drinkanddelight.rawmaterial.dao.RawMaterialDao;
 import org.drinkanddelight.rawmaterial.entities.RawMaterialStockEntity;
+import org.drinkanddelight.rawmaterial.exceptions.InvalidArgumentException;
 import org.drinkanddelight.rawmaterial.exceptions.StockNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,12 +31,11 @@ public class RawMaterialServiceImpl implements IRawMaterialService {
 	@Override
 	public RawMaterialStockEntity trackRawMaterialOrder(String orderId) {
 		if(orderId.isEmpty() || orderId.equals(null)) {
-			throw new StockNotFoundException("Invalid Id");
+			throw new InvalidArgumentException("Invalid Id");
 		}
-		Optional<RawMaterialStockEntity>optional = dao.findById(orderId);
-		RawMaterialStockEntity stock = null;
-		if(optional.isPresent()) {
-			stock = optional.get();			
+		RawMaterialStockEntity stock = dao.findByOrderId(orderId);
+		if(stock==null) {
+			throw new StockNotFoundException("Not Found");
 		}
 		return stock;
 	}
@@ -63,25 +63,25 @@ public class RawMaterialServiceImpl implements IRawMaterialService {
 
 	//This method will update RawMaterialStock on basis of its processDate.
 	@Override
-	public String updateRawMaterialStock(RawMaterialStockEntity stock, Date date) {
+	public String updateRawMaterialStock( String orderId, Date date) {
 		String msg = " ";
-		//RawMaterialStock updatedStock = new RawMaterialStock();
+		RawMaterialStockEntity updatedStock = trackRawMaterialOrder(orderId);
 		
-		if(dao.existsById(stock.getOrderId()))
-		{	
+	//	if(dao.existsById(stock.getOrderId()))
+	//	{	
 			LocalDate currentDate = LocalDate.now();
 			LocalDate startDate = LocalDate.of(date.getYear(),date.getMonth(), date.getDay());
 			LocalDate endDate = currentDate.plusMonths(3);
 			if(startDate.isAfter(currentDate) && startDate.isBefore(endDate)) {
-				//updatedStock.setProcessDate(date);
-				stock.setProcessDate(date);
-				addStock(stock);
-				msg = "Data Inserted";
+				updatedStock.setProcessDate(date);
+				//stock.setProcessDate(date);
+				addStock(updatedStock);
+				msg = "Data Updated";
 			}
 			else
-				msg = "Error in data insertion";
+				msg = "Error in data updation";
 			
-			}	return msg;	
+		return msg;	
 	
 	}
 

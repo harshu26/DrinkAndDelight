@@ -1,7 +1,13 @@
 package org.drinkanddelight.rawmaterial.controller;
 
 import java.util.*;
+
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+
+import org.drinkanddelight.rawmaterial.dto.RawMaterialStockDto;
 import org.drinkanddelight.rawmaterial.dto.StockAndSupplierDto;
+import org.drinkanddelight.rawmaterial.dto.SupplierDto;
 import org.drinkanddelight.rawmaterial.entities.RawMaterialStockEntity;
 import org.drinkanddelight.rawmaterial.entities.Supplier;
 import org.drinkanddelight.rawmaterial.exceptions.StockNotFoundException;
@@ -11,18 +17,22 @@ import org.drinkanddelight.rawmaterial.service.ISupplierService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/details")
+@RequestMapping("/stocks")
+@Validated
 public class Controller {
 	private static final Logger Log = LoggerFactory.getLogger(Controller.class);
 
@@ -33,36 +43,44 @@ public class Controller {
 	private ISupplierService service2;
 
 	@PostMapping("/add") // will add RawMaterialStock imp details.
-	public ResponseEntity<RawMaterialStockEntity> addStock(@RequestBody RawMaterialStockEntity stock) {
-		// RawMaterialStockEntity stock1 = convert(stock);
-		stock = service.addStock(stock);
-		ResponseEntity<RawMaterialStockEntity> response = new ResponseEntity<>(stock, HttpStatus.OK);
+	public ResponseEntity<RawMaterialStockEntity> addStock(@RequestBody @Valid RawMaterialStockDto dto) {
+		RawMaterialStockEntity stock1 = convert(dto);
+		stock1 = service.addStock(stock1);
+		ResponseEntity<RawMaterialStockEntity> response = new ResponseEntity<>(stock1, HttpStatus.OK);
 		return response;
 	}
 
+	public RawMaterialStockEntity convert(RawMaterialStockDto dto) {
+		RawMaterialStockEntity stock = new RawMaterialStockEntity();
+		stock.setStockId(dto.getStockId());
+		stock.setOrderId(dto.getOrderId());
+		stock.setName(dto.getName());
+		stock.setPrice_per_unit(dto.getPrice_per_unit());
+		stock.setQuantityUnit(dto.getQuantityUnit());
+		stock.setWarehouseId(dto.getWarehouseId());
+		stock.setDeliveryDate(dto.getDeliveryDate());
+		return stock;
+	}
+
 	@PostMapping("/addSupplier") // will add Supplier details.
-	public ResponseEntity<Supplier> addSupplier(@RequestBody Supplier supplier) {
+	public ResponseEntity<Supplier> addSupplier(@RequestBody @Valid SupplierDto dto) {
+		Supplier supplier  = convertSupplier(dto);
 		supplier = service2.addSupplier(supplier);
 		ResponseEntity<Supplier> response = new ResponseEntity<>(supplier, HttpStatus.OK);
 		return response;
 	}
 
-	/*
-	 * // SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy");
-	 * 
-	 * public RawMaterialStockEntity convert(RawMaterialStockDto dto) {
-	 * RawMaterialStockEntity stock = new RawMaterialStockEntity();
-	 * stock.setOrderId(dto.getOrderId()); stock.setName(dto.getName());
-	 * stock.setPrice_per_unit(dto.getPrice_per_unit());
-	 * stock.setQuantityUnit(dto.getQuantityUnit());
-	 * stock.setWarehouseId(dto.getWarehouseId());
-	 * //stock.setSupplierId(dto.getSupplierId());
-	 * 
-	 * stock.setDeliveryDate(dto.getDeliveryDate()); return stock; }
-	 * 
-	 */
+	public Supplier convertSupplier(SupplierDto dto) {
+		Supplier supplier = new Supplier();
+		supplier.setSupplierId(dto.getSupplierId());
+		supplier.setSupplierName(dto.getSupplierName());
+		supplier.setSupplierAddress(dto.getSupplierAddress());
+		supplier.setSupplierPhoneNo(dto.getSupplierPhoneNo());
+		return supplier;
+	}
+	
 	@GetMapping("/get/{id}") // will fetch RawMaterialStovck details through id.
-	public ResponseEntity<RawMaterialStockEntity> fetchStock(@PathVariable("id") String id) {
+	public ResponseEntity<RawMaterialStockEntity> fetchStock(@PathVariable("id")  String id) {
 		RawMaterialStockEntity stock = service.trackRawMaterialOrder(id);
 		ResponseEntity<RawMaterialStockEntity> response = new ResponseEntity<RawMaterialStockEntity>(stock,
 				HttpStatus.OK);
@@ -70,7 +88,7 @@ public class Controller {
 	}
 
 	@GetMapping("/getS/{supplierId}")
-	public ResponseEntity<Supplier> fetchSupplier(@PathVariable("supplierId") int supplierId) {
+	public ResponseEntity<Supplier> fetchSupplier(@PathVariable("supplierId") @Min(1) int supplierId) {
 		Supplier supplier = service2.fetchSupplierById(supplierId);
 		ResponseEntity<Supplier> response = new ResponseEntity<Supplier>(supplier, HttpStatus.OK);
 		return response;
@@ -155,6 +173,13 @@ public class Controller {
 		Log.error("exception caught", ex);
 		String msg = ex.getMessage();
 		ResponseEntity<String> response = new ResponseEntity<>(msg, HttpStatus.INTERNAL_SERVER_ERROR);
+		return response;
+	}
+	
+	@PutMapping("/update/{id}/{date}")
+	public ResponseEntity<String> updateStock(@PathVariable("id") String id, @PathVariable("date") Date date){
+		String message = service.updateRawMaterialStock(id, date);
+		ResponseEntity<String> response = new ResponseEntity<>(message, HttpStatus.OK);
 		return response;
 	}
 }

@@ -1,11 +1,18 @@
 package org.drinkanddelight.rawmaterial.dto;
 
 public class SupplierDto {
-
+	private int supplierId;
 	private String supplierName;
 	private String supplierAddress;
 	private int supplierPhoneNo;
 	
+	
+	public int getSupplierId() {
+		return supplierId;
+	}
+	public void setSupplierId(int supplierId) {
+		this.supplierId = supplierId;
+	}
 	public String getSupplierName() {
 		return supplierName;
 	}
