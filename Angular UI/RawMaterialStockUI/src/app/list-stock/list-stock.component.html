@@ -11,11 +11,12 @@
         <td>{{stock.stockId}}</td>
         <td>{{stock.orderId}}</td>
         <td>{{stock.price}}</td>
-        <td>{{stock.delivery}}</td>
+        <td>{{stock.deliveryDate}}</td>
     </tr>
 </table>
 
-
+<br>
+<br>
 <form #form ="ngForm"  (ngSubmit)="form.valid && findStockById(form)">
     <div>
         <label>Order ID</label>
@@ -38,7 +39,8 @@
     Order id = {{fetched.orderId}}
 </div>
 
-
+<br>
+<br>
 <form #updateForm = "ngForm"   (ngSubmit)="updateForm.valid && updateStock(updateForm)">
     <div>
         <label>stock id</label>

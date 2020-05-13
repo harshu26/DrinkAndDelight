@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RawMaterialStock } from '../model/rawmaterialstock';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-stock',
@@ -8,10 +9,13 @@ import { RawMaterialStock } from '../model/rawmaterialstock';
 })
 export class ListStockComponent implements OnInit {
 
+  //route:ActivatedRoute;
   stocks: RawMaterialStock[]=[];
-  constructor() { 
-    let stock1 = new  RawMaterialStock("S10","O10",10,100,1000,"w10",new Date(5-13-2020));
-    let stock2 = new  RawMaterialStock("S11","O11",11,100,1100,"w11",new Date(6-13-2020));
+
+  constructor() {
+   // this.route =route; 
+    let stock1 = new  RawMaterialStock("S10","O10",10,100,1000,"w10",new Date("2020-5-16"));
+    let stock2 = new  RawMaterialStock("S11","O11",11,100,1100,"w11",new Date("2020-6-18"));
     this.stocks.push(stock1);
     this.stocks.push(stock2);
   }

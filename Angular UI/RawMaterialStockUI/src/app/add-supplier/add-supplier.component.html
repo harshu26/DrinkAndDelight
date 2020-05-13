@@ -1,1 +1,64 @@
 <p>add-supplier works!</p>
+
+<form #form = "ngForm" (ngSubmit)="form.valid && addSupplier(form)">
+    <div>
+        <label>Supplier id</label>
+        <input type="number" name="id" ngModel #idCtrl=ngModel required minlength="2">
+        <div *ngIf="idCtrl.errors!=null && idCtrl.errors.required">
+             id is required
+        </div>
+        <div *ngIf ="idCtrl.errors!=null && idCtrl.errors.minlength">
+            Min length should be 2
+        </div>
+    </div>
+    <br>
+    <div>
+        <label>Supplier Name</label>
+        <input type="text" name="name" ngModel #nameCtrl=ngModel required minlength="4">
+        <div *ngIf="nameCtrl.errors!=null && nameCtrl.errors.required">
+            Name is required
+        </div>
+        <div *ngIf ="nameCtrl.errors!=null && nameCtrl.errors.minlength">
+            Min length should be 4
+        </div>
+    </div>
+    <br>
+    <div>
+        <label>Supplier Address </label>
+        <input type="text" name="address" ngModel #addressCtrl=ngModel required minlength="5">
+        <div *ngIf="addressCtrl.errors!=null && addressCtrl.errors.required">
+            Address is required
+        </div>
+        <div *ngIf ="addressCtrl.errors!=null && addressCtrl.errors.minlength">
+            Min length should be 5
+        </div>
+    </div>
+    <br>
+    <div>
+        <label>Supplier Phone</label>
+        <input type="number" name="phone" ngModel #phoneCtrl=ngModel required minlength="10">
+        <div *ngIf="phoneCtrl.errors!=null && phoneCtrl.errors.required">
+            Phone number is required
+        </div>
+        <div *ngIf ="phoneCtrl.errors!=null && phoneCtrl.errors.minlength">
+            Min length should be 10
+        </div>
+    </div>
+
+    <br>
+     <button type="submit">Add Supplier</button>
+
+</form>
+<br>
+    <div *ngIf="addedSupplier!==null">
+        <h3>Supplier added</h3> 
+        <br>Id={{addedSupplier.supplierId}}
+        <br>Name={{addedSupplier.supplierName}}
+    </div>
+
+<br>
+    <br>
+    <li>Existing Supplier Details.
+    <a href="" routerLink="../list-supplier">Supplier details</a>
+</li>
+

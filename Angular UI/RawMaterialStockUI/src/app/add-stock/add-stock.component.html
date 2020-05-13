@@ -9,7 +9,7 @@
             Min length should be 2
         </div>
     </div>
-
+<br>
     <div>
         <label>order id</label>
         <input type="text" name="oid" ngModel #oidCtrl=ngModel required minlength="2">
@@ -20,7 +20,7 @@
             Min length should be 2
         </div>
     </div>
-
+    <br>
     <div>
         <label>Price per unit</label>
         <input type="number" name="price_unit" ngModel #price_unitCtrl=ngModel required>
@@ -28,7 +28,7 @@
             Price  is required
         </div>
     </div>
-
+    <br>
     <div>
         <label>Quantity</label>
         <input type="number" name="quantity" ngModel #quantityCtrl=ngModel required>
@@ -36,7 +36,7 @@
             Quantity id is required
         </div>
     </div>
-
+    <br>
     <div>
         <label>Price</label>
         <input type="number" name="price" ngModel #priceCtrl=ngModel required>
@@ -44,7 +44,7 @@
             Price is required
         </div>
     </div>
-
+    <br>
     <div>
         <label>warehouse id</label>
         <input type="text" name="wid" ngModel #widCtrl=ngModel required minlength="2">
@@ -55,7 +55,7 @@
             Min length should be 2
         </div>
     </div>
-
+    <br>
     <div>
         <label>Delivery Date</label>
         <input type="date" name="delivery" ngModel #deliveryCtrl=ngModel required>
@@ -63,14 +63,26 @@
             Date is required
         </div>
     </div>
-
+    <br>
      <button type="submit">Add Stock</button>
 
 </form>
+<br>
     <div *ngIf="addedStock!==null">
         <h3>Stock added</h3> 
         Stock Id={{addedStock.stockId}}
         Order Id={{addedStock.orderId}}
+        Delivery Date={{addedStock.deliveryDate}}
     </div>
 
+    <br>
+    <br>
+    <li>Existing Stock Details.
+    <a href="" routerLink="../list-stock">Stock details</a>
+</li>
 
+<br>
+<br>
+<li>Add Supplier
+    <a href="" routerLink="../add-supplier">Add Supplier</a>
+</li>

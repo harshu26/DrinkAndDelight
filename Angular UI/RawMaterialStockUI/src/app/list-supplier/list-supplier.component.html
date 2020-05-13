@@ -1,1 +1,41 @@
-<p>list-supplier works!</p>
+<p>Suppier List</p>
+<table border="1">
+    <tr>
+        <th>Supplier Id</th>
+        <th>Supplier Name</th>
+        <th>Supplier Address</th>
+        <th>Supplier PhoneNo</th>
+    </tr>
+
+    <tr *ngFor="let supplier of suppliers">
+        <td>{{supplier.supplierId}}</td>
+        <td>{{supplier.supplierName}}</td>
+        <td>{{supplier.supplierAddress}}</td>
+        <td>{{supplier.supplierPhone}}</td>
+    </tr>
+</table>
+
+<br>
+<br>
+<form #form ="ngForm"  (ngSubmit)="form.valid && fetchSupplierById(form)">
+    <div>
+        <label>Supplier ID</label>
+        <div>
+            <label>id</label>
+            <input type="number" name="id" ngModel #idCtrl=ngModel required minlength="2">
+            <div *ngIf="idCtrl.errors!=null && idCtrl.errors.required">
+                 id is required
+            </div>
+            <div *ngIf ="idCtrl.errors!=null && idCtrl.errors.minlength">
+                Min length should be 2
+            </div>
+        </div>
+    </div>
+
+    <button type="submit">Find Supplier</button>
+</form>
+<div *ngIf="fetchedSupplier!==null">
+    <br>Id = {{fetchedSupplier.supplierId}}
+    <br>Name = {{fetchedSupplier.supplierName}}
+</div>
+
