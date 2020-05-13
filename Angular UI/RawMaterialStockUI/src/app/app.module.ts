@@ -9,6 +9,7 @@ import { ListStockComponent } from './list-stock/list-stock.component';
 import { ListSupplierComponent } from './list-supplier/list-supplier.component';
 import {FormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [

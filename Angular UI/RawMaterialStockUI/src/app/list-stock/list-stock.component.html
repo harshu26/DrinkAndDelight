@@ -11,7 +11,57 @@
         <td>{{stock.stockId}}</td>
         <td>{{stock.orderId}}</td>
         <td>{{stock.price}}</td>
-        <!--<td>{{stock.delivery}}</td>-->
+        <td>{{stock.delivery}}</td>
     </tr>
 </table>
 
+
+<form #form ="ngForm"  (ngSubmit)="form.valid && findStockById(form)">
+    <div>
+        <label>Order ID</label>
+        <div>
+            <label>order id</label>
+            <input type="text" name="id" ngModel #idCtrl=ngModel required minlength="2">
+            <div *ngIf="idCtrl.errors!=null && idCtrl.errors.required">
+                Order id is required
+            </div>
+            <div *ngIf ="idCtrl.errors!=null && idCtrl.errors.minlength">
+                Min length should be 2
+            </div>
+        </div>
+    </div>
+
+    <button type="submit">Find Stock</button>
+</form>
+<div *ngIf="fetched!==null">
+    Stock id = {{fetched.stockId}}
+    Order id = {{fetched.orderId}}
+</div>
+
+
+<form #updateForm = "ngForm"   (ngSubmit)="updateForm.valid && updateStock(updateForm)">
+    <div>
+        <label>stock id</label>
+        <input type="text" name="id" ngModel #idCtrl=ngModel required minlength="2">
+        <div *ngIf="idCtrl.errors!=null && idCtrl.errors.required">
+            Stock id is required
+        </div>
+        <div *ngIf ="idCtrl.errors!=null && idCtrl.errors.minlength">
+            Min length should be 2
+        </div>
+    </div>
+
+    <div>
+        <label>Delivery Date</label>
+        <input type="date" name="date" ngModel #dateCtrl=ngModel required>
+        <div *ngIf="dateCtrl.errors!=null && dateCtrl.errors.required">
+            Date is required
+        </div>
+    </div>
+
+     <button type="submit">Update Stock</button>
+</form>
+<div *ngIf="updatedStock!==null">
+    Stock ID = {{updatedStock.stockId}}
+    Delivery date = {{updatedStock.deliveryDate}}
+</div>

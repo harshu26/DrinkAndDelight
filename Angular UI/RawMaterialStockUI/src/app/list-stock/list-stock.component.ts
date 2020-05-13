@@ -19,4 +19,28 @@ export class ListStockComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  fetched:RawMaterialStock=null;
+  findStockById(form:any){
+    let details=form.value;
+    let id = details.id;
+    for(let stock of this.stocks){
+      if(stock.orderId===id){
+        this.fetched=stock;
+      }
+    }
+  }
+
+  updatedStock:RawMaterialStock=null;
+  updateStock(updateForm:any){
+    let details=updateForm.value;
+    let id=details.id;
+    let date=details.date;
+    for(let i=0;i<this.stocks.length;i++){
+      if(this.stocks[i].stockId===id){
+        this.stocks[i].deliveryDate=date;
+        this.updatedStock=this.stocks[i];
+      }
+    }
+  }
+  
 }

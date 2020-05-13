@@ -66,10 +66,11 @@
 
      <button type="submit">Add Stock</button>
 
-    <div *ngIf="addedStock!=null">
+</form>
+    <div *ngIf="addedStock!==null">
         <h3>Stock added</h3> 
         Stock Id={{addedStock.stockId}}
         Order Id={{addedStock.orderId}}
     </div>
 
-</form>
+
