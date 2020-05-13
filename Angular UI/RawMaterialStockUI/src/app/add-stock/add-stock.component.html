@@ -1,0 +1,75 @@
+<form #stockForm ="ngForm" (ngSubmit)="stockForm.valid && addStock(stockForm)">
+    <div>
+        <label>stock id</label>
+        <input type="text" name="sid" ngModel #sidCtrl=ngModel required minlength="2">
+        <div *ngIf="sidCtrl.errors!=null && sidCtrl.errors.required">
+            Stock id is required
+        </div>
+        <div *ngIf ="sidCtrl.errors!=null && sidCtrl.errors.minlength">
+            Min length should be 2
+        </div>
+    </div>
+
+    <div>
+        <label>order id</label>
+        <input type="text" name="oid" ngModel #oidCtrl=ngModel required minlength="2">
+        <div *ngIf="oidCtrl.errors!=null && oidCtrl.errors.required">
+            Order id is required
+        </div>
+        <div *ngIf ="oidCtrl.errors!=null && oidCtrl.errors.minlength">
+            Min length should be 2
+        </div>
+    </div>
+
+    <div>
+        <label>Price per unit</label>
+        <input type="number" name="price_unit" ngModel #price_unitCtrl=ngModel required>
+        <div *ngIf="price_unitCtrl.errors!=null && price_unitCtrl.errors.required">
+            Price  is required
+        </div>
+    </div>
+
+    <div>
+        <label>Quantity</label>
+        <input type="number" name="quantity" ngModel #quantityCtrl=ngModel required>
+        <div *ngIf="quantityCtrl.errors!=null && quantityCtrl.errors.required">
+            Quantity id is required
+        </div>
+    </div>
+
+    <div>
+        <label>Price</label>
+        <input type="number" name="price" ngModel #priceCtrl=ngModel required>
+        <div *ngIf="priceCtrl.errors!=null && priceCtrl.errors.required">
+            Price is required
+        </div>
+    </div>
+
+    <div>
+        <label>warehouse id</label>
+        <input type="text" name="wid" ngModel #widCtrl=ngModel required minlength="2">
+        <div *ngIf="widCtrl.errors!=null && widCtrl.errors.required">
+            Warehouse id is required
+        </div>
+        <div *ngIf ="widCtrl.errors!=null && widCtrl.errors.minlength">
+            Min length should be 2
+        </div>
+    </div>
+
+    <div>
+        <label>Delivery Date</label>
+        <input type="date" name="delivery" ngModel #deliveryCtrl=ngModel required>
+        <div *ngIf="deliveryCtrl.errors!=null && deliveryCtrl.errors.required">
+            Date is required
+        </div>
+    </div>
+
+     <button type="submit">Add Stock</button>
+
+    <div *ngIf="addedStock!=null">
+        <h3>Stock added</h3> 
+        Stock Id={{addedStock.stockId}}
+        Order Id={{addedStock.orderId}}
+    </div>
+
+</form>
