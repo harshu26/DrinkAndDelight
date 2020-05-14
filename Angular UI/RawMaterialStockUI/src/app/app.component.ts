@@ -14,7 +14,7 @@ this.router=router;
   }
   
   ngOnInit(){
-    this.router.navigate(['add-stock']);
+    this.router.navigate(['app']);
   }
  
   

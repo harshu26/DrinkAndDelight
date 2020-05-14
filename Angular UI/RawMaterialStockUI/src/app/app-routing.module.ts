@@ -4,9 +4,15 @@ import { AddStockComponent } from './add-stock/add-stock.component';
 import { ListStockComponent } from './list-stock/list-stock.component';
 import { AddSupplierComponent } from './add-supplier/add-supplier.component';
 import { ListSupplierComponent } from './list-supplier/list-supplier.component';
+import { StockMgtComponent } from './stock-mgt/stock-mgt.component';
 
 
 const routes: Routes = [
+  {
+    path:'stock-mgt',
+    component:StockMgtComponent
+  }
+  ,
   {
     path:'add-stock',
     component: AddStockComponent
