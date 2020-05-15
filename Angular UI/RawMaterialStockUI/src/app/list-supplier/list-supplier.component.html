@@ -7,11 +7,11 @@
         <th>Supplier PhoneNo</th>
     </tr>
 
-    <tr *ngFor="let supplier of suppliers">
+    <tr *ngFor="let supplier of supplierArray">
         <td>{{supplier.supplierId}}</td>
         <td>{{supplier.supplierName}}</td>
         <td>{{supplier.supplierAddress}}</td>
-        <td>{{supplier.supplierPhone}}</td>
+        <td>{{supplier.supplierPhoneNo}}</td>
     </tr>
 </table>
 
@@ -34,8 +34,12 @@
 
     <button class="btn btn-lg btn-primary" type="submit">Find Supplier</button>
 </form>
+<br>
 <div *ngIf="fetchedSupplier!==null">
     <br>Id = {{fetchedSupplier.supplierId}}
     <br>Name = {{fetchedSupplier.supplierName}}
 </div>
 
+<div *ngIf="foundStatus=='notfound'">
+    Supplier not found !
+    </div>

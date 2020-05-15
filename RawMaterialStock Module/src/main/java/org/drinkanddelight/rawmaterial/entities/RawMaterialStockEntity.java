@@ -22,7 +22,6 @@ public class RawMaterialStockEntity {
 	private Date expiryDate;
 	private String qualityCheck;
 	private Date processDate;
-	//private int supplierId;
 	
 	public String getOrderId() {
 		return orderId;

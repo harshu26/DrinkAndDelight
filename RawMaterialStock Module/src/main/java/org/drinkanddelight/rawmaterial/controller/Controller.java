@@ -56,9 +56,15 @@ public class Controller {
 		stock.setOrderId(dto.getOrderId());
 		stock.setName(dto.getName());
 		stock.setPrice_per_unit(dto.getPrice_per_unit());
+		stock.setPrice(dto.getPrice());
 		stock.setQuantityUnit(dto.getQuantityUnit());
 		stock.setWarehouseId(dto.getWarehouseId());
 		stock.setDeliveryDate(dto.getDeliveryDate());
+		stock.setQuantityValue(dto.getQuantityValue());
+		stock.setManuDate(dto.getManuDate());
+		stock.setExpiryDate(dto.getExpiryDate());
+		stock.setProcessDate(dto.getProcessDate());
+		stock.setQualityCheck(dto.getQualityCheck());
 		return stock;
 	}
 

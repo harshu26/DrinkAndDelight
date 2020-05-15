@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RawMaterialStock } from '../model/rawmaterialstock';
 import { ActivatedRoute } from '@angular/router';
+import { RawMaterialStockService } from '../services/rawmaterialstockservice';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list-stock',
@@ -8,32 +10,44 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./list-stock.component.css']
 })
 export class ListStockComponent implements OnInit {
-
-  //route:ActivatedRoute;
-  stocks: RawMaterialStock[]=[];
-
-  constructor() {
-   // this.route =route; 
-    let stock1 = new  RawMaterialStock("S10","O10",10,100,1000,"w10",new Date("2020-5-16"));
-    let stock2 = new  RawMaterialStock("S11","O11",11,100,1100,"w11",new Date("2020-6-18"));
-    this.stocks.push(stock1);
-    this.stocks.push(stock2);
-  }
+  stockArray:RawMaterialStock[]=[];
+  
+  service:RawMaterialStockService;
+  constructor(service:RawMaterialStockService) {
+    this.service=service;
+    let observable:Observable<RawMaterialStock[]>=this.service.fetchAllStocks();
+    observable.subscribe(
+      stocks=>{
+        this.stockArray=stocks;
+        console.log("length :"+this.stockArray.length);
+      },
+      err=>console.log(err)
+    );
+ }
 
   ngOnInit(): void {
   }
 
+  
+  foundStatus=null;
   fetched:RawMaterialStock=null;
   findStockById(form:any){
     let details=form.value;
     let id = details.id;
-    for(let stock of this.stocks){
-      if(stock.orderId===id){
+    let fetchedStock:Observable<RawMaterialStock>=this.service.findStockById(id);
+    fetchedStock.subscribe(
+      stock=>{
         this.fetched=stock;
+        this.foundStatus="found";
+      },
+      err=>{
+        this.foundStatus="notfound";
+        console.log("error while fetching");
       }
-    }
+    );
   }
 
+/*
   updatedStock:RawMaterialStock=null;
   updateStock(updateForm:any){
     let details=updateForm.value;
@@ -46,5 +60,5 @@ export class ListStockComponent implements OnInit {
       }
     }
   }
-  
+  */
 }

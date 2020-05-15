@@ -9,7 +9,6 @@ public interface IRawMaterialService {
 	RawMaterialStockEntity trackRawMaterialOrder(String orderId);
 	boolean validateManufacturingDate(Date manuDate);
 	boolean validateExpiryDate(Date expiryDate);
-	//String updateRawMaterialStock(RawMaterialStock stock);
 	List<RawMaterialStockEntity> fetchAllStock();
 	//String updateRawMaterialStock(RawMaterialStockEntity stock, Date newDate);
 	String updateRawMaterialStock(String orderId, Date date);

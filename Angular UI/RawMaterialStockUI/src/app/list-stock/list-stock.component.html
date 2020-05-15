@@ -4,13 +4,15 @@
     <tr>
         <th>Stock Id</th>
         <th>Order Id</th>
+        <th>Stock Name</th>
         <th>Price</th>
         <th>Delivery Date</th>
     </tr>
 
-    <tr *ngFor="let stock of stocks">
+    <tr *ngFor="let stock of stockArray">
         <td>{{stock.stockId}}</td>
         <td>{{stock.orderId}}</td>
+        <td>{{stock.name}}</td>
         <td>{{stock.price}}</td>
         <td>{{stock.deliveryDate}}</td>
     </tr>
@@ -41,6 +43,12 @@
 </div>
 
 <br>
+<div *ngIf="foundStatus=='notfound'">
+    Stock not found !
+    </div>
+
+<!--
+<br>
 <br>
 <form #updateForm = "ngForm"   (ngSubmit)="updateForm.valid && updateStock(updateForm)">
     <div>
@@ -69,3 +77,4 @@
     Stock ID = {{updatedStock.stockId}}
     Delivery date = {{updatedStock.deliveryDate}}
 </div>
+-->

@@ -8,10 +8,15 @@ public class RawMaterialStockDto {
 	private String orderId;
 	private String name;
 	private double price_per_unit;
+	private double quantityValue;
 	private double quantityUnit;
+	private double price;
 	private String warehouseId;
-	//private int supplierId;
 	private Date deliveryDate;
+	private Date manuDate;
+	private Date expiryDate;
+	private String qualityCheck;
+	private Date processDate;
 	
 	public String getStockId() {
 		return stockId;
@@ -55,14 +60,42 @@ public class RawMaterialStockDto {
 	public void setWarehouseId(String warehouseId) {
 		this.warehouseId = warehouseId;
 	}
-	/*
-	public int getSupplierId() {
-		return supplierId;
+	public double getQuantityValue() {
+		return quantityValue;
 	}
-	public void setSupplierId(int supplierId) {
-		this.supplierId = supplierId;
+	public void setQuantityValue(double quantityValue) {
+		this.quantityValue = quantityValue;
 	}
-*/
+	public double getPrice() {
+		return price;
+	}
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	public Date getManuDate() {
+		return manuDate;
+	}
+	public void setManuDate(Date manuDate) {
+		this.manuDate = manuDate;
+	}
+	public Date getExpiryDate() {
+		return expiryDate;
+	}
+	public void setExpiryDate(Date expiryDate) {
+		this.expiryDate = expiryDate;
+	}
+	public String getQualityCheck() {
+		return qualityCheck;
+	}
+	public void setQualityCheck(String qualityCheck) {
+		this.qualityCheck = qualityCheck;
+	}
+	public Date getProcessDate() {
+		return processDate;
+	}
+	public void setProcessDate(Date processDate) {
+		this.processDate = processDate;
+	}
 	
 	
 }

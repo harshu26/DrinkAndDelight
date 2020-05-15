@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Supplier } from '../model/supplier';
+import { SupplierService } from '../services/supplierservice';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-list-supplier',
@@ -7,29 +9,40 @@ import { Supplier } from '../model/supplier';
   styleUrls: ['./list-supplier.component.css']
 })
 export class ListSupplierComponent implements OnInit {
-
-  suppliers:Supplier[]=[];
-  constructor() {
-    let supplier1=new Supplier(111,"Harsh","Bhopal City",1234567890);
-    let supplier2=new Supplier(112,"Rahul","Delhi-NCR ",18745972852);
-    let supplier3=new Supplier(113,"Vijay","Indore City",141475585);
-    this.suppliers.push(supplier1);
-    this.suppliers.push(supplier2);
-    this.suppliers.push(supplier3);
+  supplierArray:Supplier[]=[];
+  service:SupplierService;
+  
+  constructor(service:SupplierService) {
+    this.service=service;
+    let observable:Observable<Supplier[]> = this.service.fetchAllSuppliers();
+    observable.subscribe(
+      suppliers=>{
+        this.supplierArray=suppliers;
+        console.log("length :"+this.supplierArray.length);
+      },
+      err=>console.log(err)
+    );
   }
 
   ngOnInit(): void {
   }
 
+  foundStatus=null;
   fetchedSupplier:Supplier=null;
   fetchSupplierById(form:any){
     let details=form.value;
     let id = details.id;
-    for(let supplier of this.suppliers){
-      if(supplier.supplierId===id){
+    let fetched:Observable<Supplier> = this.service.fetchSupplierById(id);
+    fetched.subscribe(
+      supplier=>{
         this.fetchedSupplier=supplier;
+        this.foundStatus="found";
+      },
+      err=>{
+        this.foundStatus="notfound";
+        console.log("Unable to fetch supplier");
       }
-    }
+    );
   }
 
 }

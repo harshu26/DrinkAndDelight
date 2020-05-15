@@ -11,6 +11,8 @@ import {FormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { StockMgtComponent } from './stock-mgt/stock-mgt.component';
+import { RawMaterialStockService } from './services/rawmaterialstockservice';
+import { SupplierService } from './services/supplierservice';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,7 @@ import { StockMgtComponent } from './stock-mgt/stock-mgt.component';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [RawMaterialStockService, SupplierService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
