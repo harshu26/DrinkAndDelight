@@ -14,7 +14,7 @@ export class ListSupplierComponent implements OnInit {
   
   constructor(service:SupplierService) {
     this.service=service;
-    let observable:Observable<Supplier[]> = this.service.fetchAllSuppliers();
+    let observable:Observable<Supplier[]> = this.service.fetchSuppliers();
     observable.subscribe(
       suppliers=>{
         this.supplierArray=suppliers;

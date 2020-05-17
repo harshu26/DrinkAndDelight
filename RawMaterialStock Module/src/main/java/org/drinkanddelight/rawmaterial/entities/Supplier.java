@@ -1,6 +1,7 @@
 package org.drinkanddelight.rawmaterial.entities;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -8,7 +9,9 @@ import javax.persistence.Table;
 @Table(name = "supplier")
 public class Supplier {
 	@Id
+	@GeneratedValue
 	private int supplierId;
+	
 	private String supplierName;
 	private String supplierAddress;
 	private int supplierPhoneNo;

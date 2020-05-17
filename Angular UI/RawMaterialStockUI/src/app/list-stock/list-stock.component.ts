@@ -28,7 +28,7 @@ export class ListStockComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  
+  errorMessage:string="Stock not found!";
   foundStatus=null;
   fetched:RawMaterialStock=null;
   findStockById(form:any){
@@ -42,23 +42,30 @@ export class ListStockComponent implements OnInit {
       },
       err=>{
         this.foundStatus="notfound";
-        console.log("error while fetching");
+        this.errorMessage=err.error;
       }
     );
   }
 
-/*
+  /*
+  message:string="";
   updatedStock:RawMaterialStock=null;
   updateStock(updateForm:any){
     let details=updateForm.value;
     let id=details.id;
     let date=details.date;
-    for(let i=0;i<this.stocks.length;i++){
-      if(this.stocks[i].stockId===id){
-        this.stocks[i].deliveryDate=date;
-        this.updatedStock=this.stocks[i];
-      }
-    }
+
+    let convertedDate = date.toString();
+
+    let stock:Observable<string>=this.service.updateStock(id,convertedDate);
+    stock.subscribe(
+     result=>{ 
+      this.message=result;
+     },
+     err=>{
+       console.log("error in data updation");
+     }
+    );
   }
   */
 }

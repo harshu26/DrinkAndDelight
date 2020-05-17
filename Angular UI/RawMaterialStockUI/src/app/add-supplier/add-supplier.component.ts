@@ -19,12 +19,12 @@ export class AddSupplierComponent implements OnInit {
 
   addSupplier(form:any){
     let details=form.value;
-    let id=details.id;
+    //let id=details.id;
     let name=details.name;
     let address=details.address;
     let phone=details.phone;
     this.addedSupplier = new Supplier();
-    this.addedSupplier.supplierId=id;
+   // this.addedSupplier.supplierId=id;
     this.addedSupplier.supplierName=name;
     this.addedSupplier.supplierAddress=address;
     this.addedSupplier.supplierPhoneNo=phone;

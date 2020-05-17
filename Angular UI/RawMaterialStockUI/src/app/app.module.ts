@@ -9,7 +9,6 @@ import { ListStockComponent } from './list-stock/list-stock.component';
 import { ListSupplierComponent } from './list-supplier/list-supplier.component';
 import {FormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
 import { StockMgtComponent } from './stock-mgt/stock-mgt.component';
 import { RawMaterialStockService } from './services/rawmaterialstockservice';
 import { SupplierService } from './services/supplierservice';
@@ -29,7 +28,7 @@ import { SupplierService } from './services/supplierservice';
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [RawMaterialStockService, SupplierService],
+  providers: [SupplierService, RawMaterialStockService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,8 @@
 package org.drinkanddelight.rawmaterial.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javax.validation.Valid;
@@ -37,15 +40,15 @@ public class Controller {
 	private static final Logger Log = LoggerFactory.getLogger(Controller.class);
 
 	@Autowired
-	private IRawMaterialService service;
+	private IRawMaterialService rawMaterialService;
 
 	@Autowired
-	private ISupplierService service2;
+	private ISupplierService supplierService;
 
 	@PostMapping("/add") // will add RawMaterialStock imp details.
 	public ResponseEntity<RawMaterialStockEntity> addStock(@RequestBody @Valid RawMaterialStockDto dto) {
 		RawMaterialStockEntity stock1 = convert(dto);
-		stock1 = service.addStock(stock1);
+		stock1 = rawMaterialService.addStock(stock1);
 		ResponseEntity<RawMaterialStockEntity> response = new ResponseEntity<>(stock1, HttpStatus.OK);
 		return response;
 	}
@@ -61,8 +64,20 @@ public class Controller {
 		stock.setWarehouseId(dto.getWarehouseId());
 		stock.setDeliveryDate(dto.getDeliveryDate());
 		stock.setQuantityValue(dto.getQuantityValue());
+	
+		Date manufacturingDate = dto.getManuDate();
+		if(rawMaterialService.validateManufacturingDate(manufacturingDate)) {
 		stock.setManuDate(dto.getManuDate());
-		stock.setExpiryDate(dto.getExpiryDate());
+		}
+		else
+			Log.error("Manufacturing Date not in range");
+		Date expirydate = dto.getExpiryDate();
+		if(rawMaterialService.validateExpiryDate(expirydate)) {
+		stock.setExpiryDate(expirydate);
+		}
+		else
+			Log.error("Expiry Date not in range");
+	
 		stock.setProcessDate(dto.getProcessDate());
 		stock.setQualityCheck(dto.getQualityCheck());
 		return stock;
@@ -71,14 +86,14 @@ public class Controller {
 	@PostMapping("/addSupplier") // will add Supplier details.
 	public ResponseEntity<Supplier> addSupplier(@RequestBody @Valid SupplierDto dto) {
 		Supplier supplier  = convertSupplier(dto);
-		supplier = service2.addSupplier(supplier);
+		supplier = supplierService.addSupplier(supplier);
 		ResponseEntity<Supplier> response = new ResponseEntity<>(supplier, HttpStatus.OK);
 		return response;
 	}
 
 	public Supplier convertSupplier(SupplierDto dto) {
 		Supplier supplier = new Supplier();
-		supplier.setSupplierId(dto.getSupplierId());
+	//	supplier.setSupplierId(dto.getSupplierId());
 		supplier.setSupplierName(dto.getSupplierName());
 		supplier.setSupplierAddress(dto.getSupplierAddress());
 		supplier.setSupplierPhoneNo(dto.getSupplierPhoneNo());
@@ -87,7 +102,7 @@ public class Controller {
 	
 	@GetMapping("/get/{id}") // will fetch RawMaterialStovck details through id.
 	public ResponseEntity<RawMaterialStockEntity> fetchStock(@PathVariable("id")  String id) {
-		RawMaterialStockEntity stock = service.trackRawMaterialOrder(id);
+		RawMaterialStockEntity stock = rawMaterialService.trackRawMaterialOrder(id);
 		ResponseEntity<RawMaterialStockEntity> response = new ResponseEntity<RawMaterialStockEntity>(stock,
 				HttpStatus.OK);
 		return response;
@@ -95,7 +110,7 @@ public class Controller {
 
 	@GetMapping("/getS/{supplierId}")
 	public ResponseEntity<Supplier> fetchSupplier(@PathVariable("supplierId") @Min(1) int supplierId) {
-		Supplier supplier = service2.fetchSupplierById(supplierId);
+		Supplier supplier = supplierService.fetchSupplierById(supplierId);
 		ResponseEntity<Supplier> response = new ResponseEntity<Supplier>(supplier, HttpStatus.OK);
 		return response;
 	}
@@ -103,7 +118,7 @@ public class Controller {
 	// will fetch details of all RawMaterialStocks.
 	@GetMapping("/getStocks")
 	public ResponseEntity<List<RawMaterialStockEntity>> fetchAllRawMaterialStock() {
-		List<RawMaterialStockEntity> stocks = service.fetchAllStock();
+		List<RawMaterialStockEntity> stocks = rawMaterialService.fetchAllStock();
 		ResponseEntity<List<RawMaterialStockEntity>> response = new ResponseEntity<>(stocks, HttpStatus.OK);
 		return response;
 	}
@@ -111,7 +126,7 @@ public class Controller {
 	// will fetch details of all Suppliers.
 	@GetMapping("/getSuppliers")
 	public ResponseEntity<List<Supplier>> fetchAllSuppliers() {
-		List<Supplier> suppliers = service2.fetchAllSuppliers();
+		List<Supplier> suppliers = supplierService.fetchAllSuppliers();
 		ResponseEntity<List<Supplier>> response = new ResponseEntity<>(suppliers, HttpStatus.OK);
 		return response;
 	}
@@ -119,8 +134,8 @@ public class Controller {
 	// will fetch details of supplier and RawMaterialStock
 	@GetMapping
 	public ResponseEntity<List<StockAndSupplierDto>> fetchAll() {
-		List<RawMaterialStockEntity> stocks = service.fetchAllStock();
-		List<Supplier> suppliers = service2.fetchAllSuppliers();
+		List<RawMaterialStockEntity> stocks = rawMaterialService.fetchAllStock();
+		List<Supplier> suppliers = supplierService.fetchAllSuppliers();
 		List<StockAndSupplierDto> list = convertStockDetails(stocks, suppliers);
 		ResponseEntity<List<StockAndSupplierDto>> response = new ResponseEntity<>(list, HttpStatus.OK);
 		return response;
@@ -141,7 +156,7 @@ public class Controller {
 		dto.setDeliveryDate(stock.getDeliveryDate());
 		int id = supplier.getSupplierId();
 		// SupplierDto supplier = fetchSupplier(id);
-		dto.setSupplier(service2.fetchSupplierById(id));
+		dto.setSupplier(supplierService.fetchSupplierById(id));
 		return dto;
 	}
 
@@ -183,8 +198,10 @@ public class Controller {
 	}
 	
 	@PutMapping("/update/{id}/{date}")
-	public ResponseEntity<String> updateStock(@PathVariable("id") String id, @PathVariable("date") Date date){
-		String message = service.updateRawMaterialStock(id, date);
+	public ResponseEntity<String> updateStock(@PathVariable("id") String id, @PathVariable("date") String date) throws ParseException{
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date requiredate = format.parse(date);
+		String message = rawMaterialService.updateRawMaterialStock(id, requiredate);
 		ResponseEntity<String> response = new ResponseEntity<>(message, HttpStatus.OK);
 		return response;
 	}

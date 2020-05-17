@@ -29,4 +29,10 @@ export class RawMaterialStockService{
         let result:Observable<RawMaterialStock>=this.client.get<RawMaterialStock>(url);
         return result;
     }
+
+/*    updateStock(id:string,date:string):Observable<string>{
+        let url = this.baseUrl+'/update/'+id+date;
+        let result:Observable<string>=this.client.put<string>(url,id,date);
+        return result;
+    }*/
 }

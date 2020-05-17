@@ -7,6 +7,7 @@
         <th>Stock Name</th>
         <th>Price</th>
         <th>Delivery Date</th>
+        <th>Process Date</th>
     </tr>
 
     <tr *ngFor="let stock of stockArray">
@@ -15,6 +16,7 @@
         <td>{{stock.name}}</td>
         <td>{{stock.price}}</td>
         <td>{{stock.deliveryDate}}</td>
+        <td>{{stock.processDate}}</td>
     </tr>
 </table>
 
@@ -63,7 +65,7 @@
     </div>
 
     <div>
-        <label>Delivery Date</label>
+        <label>Process Date</label>
         <input type="date" name="date" ngModel #dateCtrl=ngModel required>
         <div *ngIf="dateCtrl.errors!=null && dateCtrl.errors.required">
             Date is required
@@ -73,8 +75,6 @@
      <button class="btn btn-lg btn-primary" type="submit">Update Stock</button>
 </form>
 </div>
-<div *ngIf="updatedStock!==null">
-    Stock ID = {{updatedStock.stockId}}
-    Delivery date = {{updatedStock.deliveryDate}}
-</div>
+<br>
+    {{message}}
 -->

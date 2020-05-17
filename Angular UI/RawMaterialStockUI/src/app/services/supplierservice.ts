@@ -24,7 +24,7 @@ export class SupplierService{
         return result;
     }
 
-    fetchAllSuppliers():Observable<Supplier[]>{
+    fetchSuppliers():Observable<Supplier[]>{
         let url = this.baseUrl+"/getSuppliers";
         let result:Observable<Supplier[]> = this.client.get<Supplier[]>(url);
         return result;
