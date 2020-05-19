@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { StockMgtComponent } from './stock-mgt/stock-mgt.component';
 import { RawMaterialStockService } from './services/rawmaterialstockservice';
 import { SupplierService } from './services/supplierservice';
+import { UpdateStockComponent } from './update-stock/update-stock.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { SupplierService } from './services/supplierservice';
     AddSupplierComponent,
     ListStockComponent,
     ListSupplierComponent,
-    StockMgtComponent
+    StockMgtComponent,
+    UpdateStockComponent
   ],
   imports: [
     BrowserModule,

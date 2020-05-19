@@ -30,9 +30,12 @@ export class RawMaterialStockService{
         return result;
     }
 
-/*    updateStock(id:string,date:string):Observable<string>{
-        let url = this.baseUrl+'/update/'+id+date;
-        let result:Observable<string>=this.client.put<string>(url,id,date);
+     updateStock(id:string,date:string):Observable<string>{
+         console.log("Inside update stock");
+         console.log("id:"+id+" "+"date"+ date);
+        let url = this.baseUrl+'/update/'+id+"/"+date;
+        console.log("url="+url);
+        let result:Observable<string>=this.client.put(url,{"orderId":id,"processDate":date},{responseType:'text'});
         return result;
-    }*/
+    }
 }

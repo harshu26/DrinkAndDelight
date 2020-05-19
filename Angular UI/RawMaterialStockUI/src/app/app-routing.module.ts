@@ -5,6 +5,7 @@ import { ListStockComponent } from './list-stock/list-stock.component';
 import { AddSupplierComponent } from './add-supplier/add-supplier.component';
 import { ListSupplierComponent } from './list-supplier/list-supplier.component';
 import { StockMgtComponent } from './stock-mgt/stock-mgt.component';
+import { UpdateStockComponent } from './update-stock/update-stock.component';
 
 
 const routes: Routes = [
@@ -21,6 +22,11 @@ const routes: Routes = [
   {
     path:'list-stock',
     component:ListStockComponent
+  }
+  ,
+  {
+    path:'update-stock',
+    component: UpdateStockComponent
   }
   ,
   {

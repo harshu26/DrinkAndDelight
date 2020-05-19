@@ -16,6 +16,7 @@ export class AddStockComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  status=null;
   addedStock: RawMaterialStock=null;
 
   addStock(stockForm:any){
@@ -54,6 +55,7 @@ export class AddStockComponent implements OnInit {
     },
     err=>{
       console.log("error:"+err);
+      this.status="false";
     }
     );
     stockForm.reset();

@@ -47,25 +47,7 @@ export class ListStockComponent implements OnInit {
     );
   }
 
-  /*
-  message:string="";
-  updatedStock:RawMaterialStock=null;
-  updateStock(updateForm:any){
-    let details=updateForm.value;
-    let id=details.id;
-    let date=details.date;
-
-    let convertedDate = date.toString();
-
-    let stock:Observable<string>=this.service.updateStock(id,convertedDate);
-    stock.subscribe(
-     result=>{ 
-      this.message=result;
-     },
-     err=>{
-       console.log("error in data updation");
-     }
-    );
-  }
-  */
+  
+  
+  
 }
