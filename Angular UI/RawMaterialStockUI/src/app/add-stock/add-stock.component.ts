@@ -21,7 +21,7 @@ export class AddStockComponent implements OnInit {
 
   addStock(stockForm:any){
     let details = stockForm.value;
-    let sid = details.sid;
+    //let sid = details.sid;
     let oid = details.oid;
     let name = details.name;
     let price_unit = details.price_unit;
@@ -35,7 +35,7 @@ export class AddStockComponent implements OnInit {
     let check = details.check;
     let procs = details.procs;
     this.addedStock=new RawMaterialStock();
-    this.addedStock.stockId=sid;
+  //  this.addedStock.stockId=sid;
     this.addedStock.orderId=oid;
     this.addedStock.name=name;
     this.addedStock.price_per_unit=price_unit;

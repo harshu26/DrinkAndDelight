@@ -17,7 +17,7 @@ public class SupplierServiceImpl implements ISupplierService {
 
 	@Autowired
 	private SupplierDao dao;
-	
+
 	@Override
 	public Supplier addSupplier(Supplier supplier) {
 		supplier = dao.save(supplier);
@@ -26,23 +26,20 @@ public class SupplierServiceImpl implements ISupplierService {
 
 	@Override
 	public Supplier fetchSupplierById(int id) {
-		if(id==0) {
+		if (id == 0) {
 			throw new InvalidArgumentException("Invlaid Supplier Id");
 		}
-	Optional<Supplier>optional = dao.findById(id);
-	//Supplier supplier = null;
-	if(optional.isPresent()) {
-	Supplier supplier = optional.get();
-	return supplier;
-	}
-		//return supplier;
-	throw new SupplierNotFoundException("Supplier not found");
+		Optional<Supplier> optional = dao.findById(id);
+		if (optional.isPresent()) {
+			return optional.get();
+		}
+		throw new SupplierNotFoundException("Supplier not found");
 	}
 
 	@Override
 	public List<Supplier> fetchAllSuppliers() {
-		List<Supplier>supplierList = dao.findAll();
-		return supplierList;
+		return dao.findAll();
+
 	}
 
 }
