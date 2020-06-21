@@ -26,6 +26,9 @@ public class RawMaterialServiceImpl implements IRawMaterialService {
 	public RawMaterialStockEntity addStock(RawMaterialStockEntity stock) {
 		stock.setStockId(generateId());
 		stock = dao.save(stock);
+		if (stock.getStockId().isEmpty()) {
+			throw new StockAdditionException("Unable to generate stock id");
+		}
 		return stock;
 	}
 

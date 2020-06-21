@@ -1,6 +1,7 @@
-package org.drinkanddelight.rawmaterialservice.util;
+package org.drinkanddelight.rawmaterial.util;
 
 import org.drinkanddelight.rawmaterial.exceptions.InvalidArgumentException;
+import org.drinkanddelight.rawmaterial.exceptions.StockAdditionException;
 import org.drinkanddelight.rawmaterial.exceptions.StockNotFoundException;
 import org.drinkanddelight.rawmaterial.exceptions.SupplierNotFoundException;
 import org.slf4j.Logger;
@@ -22,6 +23,13 @@ public class CentralizedExceptionHandler {
 		return new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
 	}
 
+	@ExceptionHandler(StockAdditionException.class)
+	public ResponseEntity<String> handleStockAddition(StockAdditionException ex) {
+		Log.error("Unable to add stock", ex);
+		String msg = ex.getMessage();
+		return new ResponseEntity<>(msg, HttpStatus.NOT_FOUND);
+	}
+	
 	@ExceptionHandler(SupplierNotFoundException.class)
 	public ResponseEntity<String> handleSupplierNotFound(SupplierNotFoundException ex) {
 		Log.error("Supplier not found exception", ex);
