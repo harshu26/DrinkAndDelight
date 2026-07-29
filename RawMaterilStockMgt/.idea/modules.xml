@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/RawMaterilStockMgt.iml" filepath="$PROJECT_DIR$/.idea/RawMaterilStockMgt.iml" />
+      <module fileurl="file://$PROJECT_DIR$/discovery-microservice-server/discovery.iml" filepath="$PROJECT_DIR$/discovery-microservice-server/discovery.iml" />
+      <module fileurl="file://$PROJECT_DIR$/DrinkAndDelight/rawmaterialstockmgt.iml" filepath="$PROJECT_DIR$/DrinkAndDelight/rawmaterialstockmgt.iml" />
+    </modules>
+  </component>
+</project>
